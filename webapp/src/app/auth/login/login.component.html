@@ -20,7 +20,7 @@
       <input
         type="password"
         matInput
-        name="passsword"
+        name="password"
         ngModel
         placeholder="Password"
         #passwordInput="ngModel"
@@ -30,6 +30,8 @@
         >Please enter a valid password!</mat-error
       >
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Login</button>
+    <button mat-raised-button color="primary" type="submit" *ngIf="!isLoading">
+      Login
+    </button>
   </form>
 </mat-card>

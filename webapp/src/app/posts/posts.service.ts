@@ -38,13 +38,18 @@ export class PostService {
           };
         })
       )
-      .subscribe((transformedPosts) => {
-        this.posts = transformedPosts.posts;
-        this.postsUpdated.next({
-          posts: [...this.posts],
-          totalPosts: transformedPosts.totalPosts,
-        });
-      });
+      .subscribe(
+        (transformedPosts) => {
+          this.posts = transformedPosts.posts;
+          this.postsUpdated.next({
+            posts: [...this.posts],
+            totalPosts: transformedPosts.totalPosts,
+          });
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
   }
 
   getPost(id: string | null) {
@@ -63,9 +68,14 @@ export class PostService {
     postData.append('image', image, title);
     this.http
       .post<{ message: string; post: Post }>(this.baseUrl + 'posts', postData)
-      .subscribe((res) => {
-        this.router.navigate(['/']);
-      });
+      .subscribe(
+        (res) => {
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
   }
 
   updatePost(
@@ -91,9 +101,14 @@ export class PostService {
         this.baseUrl + 'posts/' + id,
         postData
       )
-      .subscribe((res) => {
-        this.router.navigate(['/']);
-      });
+      .subscribe(
+        (res) => {
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
   }
 
   deletePost(postId: string) {
